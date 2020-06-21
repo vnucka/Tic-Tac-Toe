@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Крестики-нолики</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <script src="assets/js/game.js"></script>
+
+</head>
+<body>
+    <div class="page">
+        <div class="header">
+            <div class="count">Счет: <span id="p-count"></span> | <span id="g-count"></span></div>
+            <div class="btn btn-success" onclick="game.start()">Играть</div>
+            <div class="btn btn-danger" onclick="game.giveUp()">Сдаться</div>
+        </div>
+        <div class="game-wrap" id="game-wrap">
+            <div id="substrate"></div>
+            <div class="field">
+                <div class="row">
+                    <div class="cell"></div>
+                    <div class="cell"></div>
+                    <div class="cell"></div>
+                </div>
+                <div class="row">
+                    <div class="cell"></div>
+                    <div class="cell"></div>
+                    <div class="cell"></div>
+                </div>
+                <div class="row">
+                    <div class="cell"></div>
+                    <div class="cell"></div>
+                    <div class="cell"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
