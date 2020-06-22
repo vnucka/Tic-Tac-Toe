@@ -102,10 +102,14 @@ const game = {
             setTimeout(() => {
                 let moved = false,
                     lastMove = false,
-                    disturb = false;
+                    disturb = false,
+                    winCombination = null,
+                    checkMove = 0,
+                    moveToWin = 0;
+
                 for (winComb of this.getWinCombs()) {
-                    let checkMove = 0,
-                        moveToWin = 0;
+                    checkMove = 0;
+                    moveToWin = 0;
 
                     // Checking is computer can wining based on the wining combinations
                     for (idx in winComb) {
@@ -120,28 +124,26 @@ const game = {
                         if(moveToWin === 1) {
                             lastMove = true;
                             moved = true;
+                            winCombination = winComb;
                             break;
                         }
 
                         if(checkMove === 3) {
                             moved = true;
-                            break;
+                            winCombination = winComb;
                         }
                     }
+                }
 
+                if(this.firstMove === 'game' && lastMove) {
+                    // Use a last pass based on the wining combinations
+                    this.moveWinComb(winComb);
+                } else {
+                    disturb = disturb ? disturb : this.disturbPlayerWin();
 
-                    if(this.firstMove === 'game' && lastMove) {
-                        // Use a last pass based on the wining combinations
+                    if(!disturb && moved) {
+                        // Use a pass based on the wining combinations
                         this.moveWinComb(winComb);
-                        break;
-                    } else {
-                        disturb = disturb ? disturb : this.disturbPlayerWin();
-
-                        if(!disturb && moved) {
-                            // Use a pass based on the wining combinations
-                            this.moveWinComb(winComb);
-                            break;
-                        }
                     }
                 }
 
@@ -157,7 +159,12 @@ const game = {
     moveWinComb(winComb) {
         // This method use a pass based on the wining combinations
         for (idx in winComb) {
+            let check = 0;
             if(winComb[idx] && !this.field[idx]) {
+                check++;
+            }
+
+            if(check === 1) {
                 this.field[idx] = 2;
                 break;
             }
